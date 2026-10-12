@@ -1,26 +1,72 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --radius: 0.5rem;
+  --background: oklch(13% 0.005 285);
+  --foreground: oklch(96% 0.005 285);
+  --card: oklch(17% 0.006 285);
+  --card-foreground: oklch(96% 0.005 285);
+  --secondary: oklch(21% 0.008 285);
+  --secondary-foreground: oklch(96% 0.005 285);
+  --muted: oklch(21% 0.008 285);
+  --muted-foreground: oklch(65% 0.01 285);
+  --border: oklch(100% 0 0 / 0.1);
+  --input: oklch(100% 0 0 / 0.14);
+  --racing: oklch(58.5% 0.233 25.5);
+  --racing-foreground: oklch(98% 0.005 285);
+  --asphalt: oklch(19% 0.007 285);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-racing: var(--racing);
+  --color-racing-foreground: var(--racing-foreground);
+  --color-asphalt: var(--asphalt);
+  --font-sans: var(--font-inter), "Inter", system-ui, sans-serif;
+  --font-display: var(--font-archivo), "Archivo", system-ui, sans-serif;
+  --radius-lg: var(--radius);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+}
+
+.checker-edge {
+  background-image:
+    linear-gradient(45deg, var(--foreground) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--foreground) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--foreground) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--foreground) 75%);
+  background-position:
+    0 0,
+    0 8px,
+    8px -8px,
+    -8px 0;
+  background-size: 16px 16px;
+}
+
+.speed-lines {
+  background-image: repeating-linear-gradient(
+    -55deg,
+    transparent 0 22px,
+    oklch(1 0 0 / 0.03) 22px 24px
+  );
 }
