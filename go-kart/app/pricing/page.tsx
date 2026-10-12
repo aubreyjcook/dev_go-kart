@@ -1,36 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BookSession } from "@/components/book-session";
 import { CheckIcon } from "@/components/icons";
+import { formatEuros, racePackages } from "@/lib/packages";
 
 export const metadata: Metadata = {
   title: "Prices & Packages",
   description:
     "Simple prices, no hidden fees. All sessions include a helmet and safety briefing.",
 };
-
-const sessions = [
-  {
-    name: "Sprint",
-    duration: "10 minutes",
-    price: "€15",
-    features: ["Helmet & briefing", "Live lap timing", "Printed results"],
-    popular: false,
-  },
-  {
-    name: "Grand Prix",
-    duration: "3 × 10 minutes",
-    price: "€35",
-    features: ["Everything in Sprint", "Qualifying + race", "Podium photo"],
-    popular: true,
-  },
-  {
-    name: "Endurance",
-    duration: "30 minutes",
-    price: "€50",
-    features: ["Long-run session", "Pit stop practice", "Full lap analysis"],
-    popular: false,
-  },
-];
 
 const groups = [
   {
@@ -55,14 +33,14 @@ export default function PricingPage() {
         <h1 className="mt-3 text-5xl font-black uppercase">Pick your race</h1>
         <p className="mt-4 max-w-xl text-muted-foreground">
           Simple prices, no hidden fees. All sessions include a helmet and
-          safety briefing.
+          safety briefing. Card payments are handled by Stripe.
         </p>
 
         <div className="mt-12 grid gap-6 md:grid-cols-3">
-          {sessions.map((session) => (
+          {racePackages.map((session) => (
             <div
-              key={session.name}
-              className={`relative rounded-lg border p-8 ${
+              key={session.id}
+              className={`relative flex flex-col rounded-lg border p-8 ${
                 session.popular
                   ? "border-racing bg-card"
                   : "border-border bg-card/60"
@@ -78,7 +56,7 @@ export default function PricingPage() {
                 {session.duration}
               </p>
               <div className="mt-6 font-display text-5xl font-black">
-                {session.price}
+                {formatEuros(session.unitAmount)}
               </div>
               <ul className="mt-6 space-y-3">
                 {session.features.map((feature) => (
@@ -88,6 +66,7 @@ export default function PricingPage() {
                   </li>
                 ))}
               </ul>
+              <BookSession packageId={session.id} />
             </div>
           ))}
         </div>
